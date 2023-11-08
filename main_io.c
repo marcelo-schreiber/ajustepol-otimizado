@@ -13,15 +13,15 @@
 // funcao que le n e k
 void read_n_k(long long int *n, long long int *k)
 {
-  int scanf_result = scanf("%d", n);
+  int scanf_result = scanf("%lld", n);
 
   if (scanf_result != 1)
   {
     printf("Erro ao ler o grau do polinômio\n");
     exit(EXIT_FAILURE);
   }
-  
-  scanf_result = scanf("%d", k);
+
+  scanf_result = scanf("%lld", k);
 
   if (scanf_result != 1)
   {
@@ -30,7 +30,7 @@ void read_n_k(long long int *n, long long int *k)
   }
 }
 
-//funcao que le os pontos
+// funcao que le os pontos
 points_t *read_points(long long int k)
 {
   points_t *points = (points_t *)malloc(sizeof(points_t));
@@ -51,7 +51,8 @@ points_t *read_points(long long int k)
   return points;
 }
 
-void free_points(points_t *points) {
+void free_points(points_t *points)
+{
   free(points->points);
   free(points);
 }
