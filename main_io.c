@@ -1,3 +1,11 @@
+
+/*
+ * Autores:
+ * Marcelo Augusto Rissette Schreiber GRR20220063
+ * Felipe Quaresma Vieira GRR20215516
+ *
+ * Data: 8/10/2023
+ */
 #include "main_io.h"
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,9 +1,11 @@
-# Polynomial Aproximation
+# Aproximação polinomial de funções por mínimos quadrados com calculo intervalar
+
+## Alunos
 
 - Felipe Quaresma Vieira GRR20215516
 - Marcelo Augusto Rissette Schreiber GRR20220063
 
-Estruturas de dados utilizadas:
+## Estruturas de dados utilizadas
 
     DoubleIntUnion (interval_operations.h): Estrutura de dados que auxilia na conversão de double para float.
 
@@ -17,7 +19,7 @@ Estruturas de dados utilizadas:
 
     points (matrix.h): Estrutura que abriga um vetor de pontos (x,y)
 
-Explicação dos módulos
+## Explicação dos módulos
 
     interval_operations: Guarda todas as operações com intervalos
 
@@ -30,4 +32,3 @@ Explicação dos módulos
     mmq: Guarda as funções responsáveis pelo método dos mínimos quadrados e do resíduo.
 
     utils: Módulo criado pelo professor para auxílio no trabalho.
-

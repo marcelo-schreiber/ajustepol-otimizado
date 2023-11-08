@@ -51,7 +51,7 @@ void print_vector(Vector v);
 size_t find_max(Matrix m, size_t i);
 
 /* troca linha da matriz */
-void switch_line(Matrix *m, Vector *c, size_t i, size_t max)
+void switch_line(Matrix *m, Vector *c, size_t i, size_t max);
 
 /* libera memoria */
 void free_matrix(Matrix *A);

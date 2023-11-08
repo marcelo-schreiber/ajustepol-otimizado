@@ -9,13 +9,6 @@
 #include "interval_operations.h"
 #include <math.h>
 
-uint64_t convert_double_to_int64(double dbl)
-{
-  DoubleIntUnion unionValue;
-  unionValue.f = dbl;
-
-  return unionValue.u;
-}
 
 double m(double x)
 {

@@ -4,22 +4,12 @@
 #include <fenv.h>
 #include <stdint.h>
 
-/* Estrutura que auxilia na conversão double->float */
-typedef union
-{
-  double f;
-  uint64_t u;
-} DoubleIntUnion;
-
 /* estrutura do intervalo de um double */
 typedef struct
 {
   double lower;
   double upper;
 } Interval;
-
-/* função da conversão double->float */
-uint64_t convert_double_to_int64(double dbl);
 
 /* intervalo inferior */
 double m(double x);
