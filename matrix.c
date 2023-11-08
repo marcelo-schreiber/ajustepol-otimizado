@@ -8,7 +8,7 @@
 
 #include "matrix.h"
 
-Matrix* initialize_matrix(unsigned int order) {
+Matrix* initialize_matrix(long long int order) {
     Matrix *A = (Matrix *)malloc(sizeof(Matrix));
     A->size = order;
     A->data = (Interval **)malloc(A->size * sizeof(Interval *));
@@ -20,7 +20,7 @@ Matrix* initialize_matrix(unsigned int order) {
     return A;
 }
 
-Vector* initialize_vector(unsigned int order) {
+Vector* initialize_vector(long long int order) {
     Vector *b = (Vector *)malloc(sizeof(Vector));
     b->size = order;
     b->data = (Interval *)malloc(b->size * sizeof(Interval));

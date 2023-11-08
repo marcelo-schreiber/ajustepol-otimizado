@@ -39,10 +39,10 @@ void triangulate_matrix_by_gauss(Matrix *m, Vector *c);
 Vector *get_solution_by_substitution(Matrix m, Vector c);
 
 /* Inicializa matriz de intervalos */
-Matrix* initialize_matrix(unsigned long long int order);
+Matrix* initialize_matrix(long long int order);
 
 /* Inicializa vector de intervalos */
-Vector* initialize_vector(unsigned long long int order);
+Vector* initialize_vector(long long int order);
 
 /* printa vector */
 void print_vector(Vector v);
