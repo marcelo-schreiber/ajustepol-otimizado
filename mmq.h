@@ -9,7 +9,7 @@ interval_sum(A->data[i][j], interval_pow(interval(points->points[k].x), i + j));
 
 Depois disso, dois fors alinhados preenchem o vetor b com a fórmula
 interval_sum(b->data[i], interval_mul(interval_pow(interval(points->points[k].x), i), interval(points->points[k].y))); */
-void generate_matrix(Matrix *A, Vector *b, points_t *points, unsigned int order);
+void generate_matrix(Matrix *A, Vector *b, points_t *points, unsigned long long int order);
 
 /* printa e calcula residuo */
 void print_residue(points_t *points, Vector *b);

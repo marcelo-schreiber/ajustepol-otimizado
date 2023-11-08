@@ -32,4 +32,4 @@ Interval interval_mul(Interval a, Interval b);
 Interval interval_div(Interval a, Interval b);
 
 /* operação de potenciação de um intervalo */
-Interval interval_pow(Interval i, int p);
+Interval interval_pow(Interval i, long long int p);

@@ -11,7 +11,7 @@
 #include <stdlib.h>
 
 // funcao que le n e k
-void read_n_k(int *n, int *k)
+void read_n_k(long long int *n, long long int *k)
 {
   int scanf_result = scanf("%d", n);
 
@@ -31,7 +31,7 @@ void read_n_k(int *n, int *k)
 }
 
 //funcao que le os pontos
-points_t *read_points(int k)
+points_t *read_points(long long int k)
 {
   points_t *points = (points_t *)malloc(sizeof(points_t));
   points->num_of_points = k - 1;

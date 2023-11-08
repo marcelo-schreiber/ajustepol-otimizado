@@ -15,7 +15,7 @@
 
     Vector (matrix.h): Estrutura de dados responsável por criar um vetor de intervalos
 
-    point (matrix.h): Estrutura que abriga um ponto (x,y)
+    polong long int (matrix.h): Estrutura que abriga um ponto (x,y)
 
     points (matrix.h): Estrutura que abriga um vetor de pontos (x,y)
 

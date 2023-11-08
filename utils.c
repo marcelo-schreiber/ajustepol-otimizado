@@ -37,7 +37,7 @@ rtime_t timestamp(void)
  *  Função retorna a string "ABC_10"
  * Útil para gerar marcadores para LIKWID
  */
-string_t markerName(string_t baseName, int n)
+string_t markerName(string_t baseName, long long int n)
 {
     string_t mark = (string_t)malloc((strlen(baseName) + 1) + numDigits(n) + 1);
 

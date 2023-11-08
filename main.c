@@ -11,7 +11,7 @@
 
 int main(void)
 {
-  int n, k;
+  long long int n, k;
   LIKWID_MARKER_INIT;
 
   read_n_k(&n, &k);

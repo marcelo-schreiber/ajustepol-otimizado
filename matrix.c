@@ -13,7 +13,7 @@ Matrix* initialize_matrix(unsigned int order) {
     A->size = order;
     A->data = (Interval **)malloc(A->size * sizeof(Interval *));
 
-    for (int i = 0; i < A->size; i++)
+    for (long long int i = 0; i < A->size; i++)
     {
         A->data[i] = (Interval *)malloc(A->size * sizeof(Interval));
     }
@@ -86,7 +86,7 @@ void triangulate_matrix_by_gauss(Matrix *m, Vector *c)
 
 void print_vector(Vector v)
 {
-    for (int i = 0; i < v.size; i++)
+    for (long long int i = 0; i < v.size; i++)
     {
         printf("[%1.8e,%1.8e] ", v.data[i].lower, v.data[i].upper);
     }
@@ -97,7 +97,7 @@ Vector *get_solution_by_substitution(Matrix m, Vector c)
 {
   Vector *solution = initialize_vector(m.size);
 
-  for (int i = m.size - 1; i >= 0; i--)
+  for (long long int i = m.size - 1; i >= 0; i--)
   {
 
     Interval sum = interval(0.0);
@@ -113,7 +113,7 @@ Vector *get_solution_by_substitution(Matrix m, Vector c)
 
 void free_matrix(Matrix *A)
 {
-    for (int i = 0; i < A->size; i++)
+    for (long long int i = 0; i < A->size; i++)
     {
         free(A->data[i]);
     }

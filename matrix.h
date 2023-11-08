@@ -29,7 +29,7 @@ typedef struct point
 typedef struct points
 {
     point_t *points;
-    int num_of_points;
+    long long int num_of_points;
 } points_t;
 
 /* eliminação de gauss */
@@ -39,10 +39,10 @@ void triangulate_matrix_by_gauss(Matrix *m, Vector *c);
 Vector *get_solution_by_substitution(Matrix m, Vector c);
 
 /* Inicializa matriz de intervalos */
-Matrix* initialize_matrix(unsigned int order);
+Matrix* initialize_matrix(unsigned long long int order);
 
 /* Inicializa vector de intervalos */
-Vector* initialize_vector(unsigned int order);
+Vector* initialize_vector(unsigned long long int order);
 
 /* printa vector */
 void print_vector(Vector v);

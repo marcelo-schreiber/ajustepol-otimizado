@@ -84,7 +84,7 @@ Interval interval_div(Interval a, Interval b)
 //                  [ap,bp]                   se p é par e a ≥ 0
 //                  [bp,ap]                   se p é par e b < 0
 //                  [0,max{ap,bp}]     se p é par e a < 0 ≤ b
-Interval interval_pow(Interval i, int p)
+Interval interval_pow(Interval i, long long int p)
 {
   Interval result;
   double a = i.lower;
