@@ -41,7 +41,7 @@ string_t markerName(string_t baseName, long long int n)
 {
     string_t mark = (string_t)malloc((strlen(baseName) + 1) + numDigits(n) + 1);
 
-    sprintf(mark, "%s_%u", baseName, n);
+    sprintf(mark, "%s_%llu", baseName, n);
 
     return mark;
 }
