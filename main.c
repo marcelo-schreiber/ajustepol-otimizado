@@ -16,6 +16,8 @@ int main(void)
 
   read_n_k(&n, &k);
 
+  ++n;
+
   points_t *points = read_points(k);
 
   // Create the coefficient matrix (A) and the right-hand side vector (b)
