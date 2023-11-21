@@ -1,7 +1,7 @@
 PROJ_NAME=ajustePol
  
 # .c files
-C_SOURCE=$(wildcard *.c)
+C_SOURCE=$(filter-out gera_entrada.c, $(wildcard *.c))
  
 # .h files
 H_SOURCE=$(wildcard *.h)
@@ -19,7 +19,7 @@ CC_FLAGS=-c         \
 				 -march=native	\
          -Wall      \
 
- LIKWID_FLAGS=-DLIKWID_PERFMON \
+LIKWID_FLAGS=-DLIKWID_PERFMON \
  						 -I{LIKWID_INCLUDE} \
  						 -L{LIKWID_LIB} \
 
@@ -27,7 +27,6 @@ CC_FLAGS=-c         \
 # TODO: mudar para o caminho do likwid e adicionar likwid python
 DISTFILES = *.c *.h README* Makefile likwid.py pontos.in teste.in expected.out
 DISTDIR = `basename mars22-fqv21`
-
 #
 # Compilation and linking
 #
@@ -36,6 +35,7 @@ all: $(PROJ_NAME)
 $(PROJ_NAME): $(OBJ)
 		$(CC) $(LIKWID_FLAGS) $^ -o $@ -lm -llikwid
  
+
 %.o: %.c %.h
 		$(CC) -o $@ $< $(CC_FLAGS) $(LIKWID_C) -lm -llikwid
  
