@@ -32,3 +32,13 @@
     mmq: Guarda as funções responsáveis pelo método dos mínimos quadrados e do resíduo.
 
     utils: Módulo criado pelo professor para auxílio no trabalho.
+
+## Usando script
+
+Para usar o com likwid, somente é necessário rodar o programa com
+
+```bash
+python3 likwid.py
+```
+
+Ele irá fazer um make clean e make automaticamente.
