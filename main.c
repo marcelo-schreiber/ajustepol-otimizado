@@ -41,7 +41,9 @@ int main(void)
 
   print_vector(*b);
 
+  LIKWID_MARKER_START("print_residue");
   print_residue(points, b);
+  LIKWID_MARKER_STOP("print_residue");
 
   printf("%1.8e\n%1.8e\n", t_gen, t_solve);
 
