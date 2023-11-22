@@ -41,11 +41,13 @@ int main(void)
 
   print_vector(*b);
 
-  LIKWID_MARKER_START("print_residue");
+  double t_res = timestamp();
+  LIKWID_MARKER_START("residue");
   print_residue(points, b);
-  LIKWID_MARKER_STOP("print_residue");
+  LIKWID_MARKER_STOP("residue");
+  t_res = timestamp() - t_res;
 
-  printf("%1.8e\n%1.8e\n", t_gen, t_solve);
+  printf("%1.8e\n%1.8e\n%1.8e", t_gen, t_solve, t_res);
 
   // Clean up memory
   free_matrix(A);
