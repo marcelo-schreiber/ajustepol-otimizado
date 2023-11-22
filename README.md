@@ -42,3 +42,13 @@ python3 likwid.py
 ```
 
 Ele irá fazer um make clean e make automaticamente.
+
+## O que foi otimizado (deveria ser otimizado)
+
+- Usar vetor ao inves de matriz (sempre listade uma dimensão)
+
+- reaproveitar diagonais da matriz
+
+- aproveitar calculo de quando há exponenciação
+
+- i++ -> ++i
