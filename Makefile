@@ -35,7 +35,6 @@ all: $(PROJ_NAME)
 $(PROJ_NAME): $(OBJ)
 		$(CC) $(LIKWID_FLAGS) $^ -o $@ -lm -llikwid
  
-
 %.o: %.c %.h
 		$(CC) -o $@ $< $(CC_FLAGS) $(LIKWID_C) -lm -llikwid
  
