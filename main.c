@@ -47,7 +47,9 @@ int main(void)
   LIKWID_MARKER_STOP("residue");
   t_res = timestamp() - t_res;
 
-  printf("%1.8e\n%1.8e\n%1.8e", t_gen, t_solve, t_res);
+  printf("tempo de execucoes\n");
+
+  printf("%1.8e\n%1.8e\n%1.8e\n", t_gen, t_solve, t_res);
 
   // Clean up memory
   free_matrix(A);
