@@ -13,14 +13,24 @@
 void print_residue(points_t *points, Vector *b)
 {
     long long int num_points = points->num_of_points;
-    
-    for (long long int i = 0; i < num_points; i++)
+    long long int max_power = b->size - 1;
+
+    for (long long int i = 0; i < num_points; ++i)
     {
         Interval sum = interval(0.0);
-        for (long long int j = 0; j < b->size; j++)
+        Interval current_power = interval(1.0);
+        Interval x = interval(points->points[i].x);
+
+        // Calculate powers without the need for an if statement
+        for (long long int j = 0; j < max_power; ++j)
         {
-            sum = interval_sum(sum, interval_mul(b->data[j], interval_pow(interval(points->points[i].x), j)));
+            sum = interval_sum(sum, interval_mul(b->data[j], current_power));
+            current_power = interval_mul(current_power, x);
         }
+
+        // Special case for the last power
+        sum = interval_sum(sum, interval_mul(b->data[max_power], current_power));
+
         Interval residue = interval_sub(interval(points->points[i].y), sum);
         printf("[%1.8e,%1.8e]  ", residue.lower, residue.upper);
     }
@@ -48,9 +58,8 @@ void generate_matrix(Matrix *A, Vector *b, points_t *points, unsigned long long 
     }
 }
 
-Vector* solve_system(Matrix *A, Vector *b)
+Vector *solve_system(Matrix *A, Vector *b)
 {
     triangulate_matrix_by_gauss(A, b);
     return get_solution_by_substitution(*A, *b);
 }
-
