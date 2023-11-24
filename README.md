@@ -42,7 +42,7 @@ python3 likwid.py
 ```
 
 Ele irá fazer um make clean e make automaticamente.
-
+(https://www.codeproject.com/Articles/6154/Writing-Efficient-C-and-C-Code-Optimization)
 ## O que foi otimizado (deveria ser otimizado)
 
 - Usar vetor ao inves de matriz (sempre lista de uma dimensão)
