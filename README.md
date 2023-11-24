@@ -45,10 +45,22 @@ Ele irá fazer um make clean e make automaticamente.
 
 ## O que foi otimizado (deveria ser otimizado)
 
-- Usar vetor ao inves de matriz (sempre listade uma dimensão)
+- Usar vetor ao inves de matriz (sempre lista de uma dimensão)
 
 - reaproveitar diagonais da matriz
 
-- aproveitar calculo de quando há exponenciação
+- aproveitar calculo de quando há exponenciação (x^9 = x^8 * x, etc)
 
 - i++ -> ++i
+
+- colocar unsigned em tudo que for possivel
+
+- usar register em variáveis muito utilizadas em um loop curto
+
+- usar inline em funções pequenas
+
+- usar const em variáveis que não são alteradas
+
+- usar alligned_alloc para alocar memória alinhada (tamanho divisivel por 16)
+
+- const quando uma funcao recebe um ponteiro e não altera o valor
