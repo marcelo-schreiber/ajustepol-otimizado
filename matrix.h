@@ -8,7 +8,7 @@
 typedef struct
 {
   size_t size;
-  Interval **data;
+  Interval *data;
 } Matrix;
 
 /* Estrutura de dados de um vetor de intervalos */
@@ -21,15 +21,15 @@ typedef struct
 /* Estrutura de um ponto (x,y) */
 typedef struct point
 {
-    double x;
-    double y;
+  double x;
+  double y;
 } point_t;
 
 /* Estrutura de um array de pontos (x,y) */
 typedef struct points
 {
-    point_t *points;
-    long long int num_of_points;
+  point_t *points;
+  long long int num_of_points;
 } points_t;
 
 /* eliminação de gauss */
@@ -39,10 +39,10 @@ void triangulate_matrix_by_gauss(Matrix *m, Vector *c);
 Vector *get_solution_by_substitution(Matrix m, Vector c);
 
 /* Inicializa matriz de intervalos */
-Matrix* initialize_matrix(long long int order);
+Matrix *initialize_matrix(long long int order);
 
 /* Inicializa vector de intervalos */
-Vector* initialize_vector(long long int order);
+Vector *initialize_vector(long long int order);
 
 /* printa vector */
 void print_vector(Vector v);

@@ -40,13 +40,14 @@ void print_residue(points_t *points, Vector *b)
 void generate_matrix(Matrix *A, Vector *b, points_t *points, unsigned long long int order)
 {
     // Fill the matrix and the vector
+    size_t m_size = A->size;
     for (long long int i = 0; i < A->size; i++)
     {
         for (long long int j = 0; j < A->size; j++)
         {
-            A->data[i][j] = interval(0.0);
+            A->data[i * m_size + j] = interval(0.0);
             for (long long int k = 0; k < points->num_of_points; k++)
-                A->data[i][j] = interval_sum(A->data[i][j], interval_pow(interval(points->points[k].x), i + j));
+                A->data[i * m_size + j] = interval_sum(A->data[i * m_size + j], interval_pow(interval(points->points[k].x), i + j));
         }
     }
 

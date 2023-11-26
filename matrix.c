@@ -8,32 +8,31 @@
 
 #include "matrix.h"
 
-Matrix* initialize_matrix(long long int order) {
-    Matrix *A = (Matrix *)malloc(sizeof(Matrix));
-    A->size = order;
-    A->data = (Interval **)malloc(A->size * sizeof(Interval *));
+Matrix *initialize_matrix(long long int order)
+{
+  Matrix *A = (Matrix *)malloc(sizeof(Matrix));
+  A->size = order;
+  A->data = (Interval *)malloc(order * order * sizeof(Interval) + 1);
 
-    for (long long int i = 0; i < A->size; i++)
-    {
-        A->data[i] = (Interval *)malloc(A->size * sizeof(Interval));
-    }
-    return A;
+  return A;
 }
 
-Vector* initialize_vector(long long int order) {
-    Vector *b = (Vector *)malloc(sizeof(Vector));
-    b->size = order;
-    b->data = (Interval *)malloc(b->size * sizeof(Interval));
-    return b;
+Vector *initialize_vector(long long int order)
+{
+  Vector *b = (Vector *)malloc(sizeof(Vector));
+  b->size = order;
+  b->data = (Interval *)malloc(order * sizeof(Interval));
+
+  return b;
 }
 
 size_t find_max(Matrix m, size_t i)
 {
   size_t max = i;
-
-  for (size_t j = i + 1; j < m.size; j++)
+  size_t m_size = m.size;
+  for (size_t j = i + 1; j < m_size; j++)
   {
-    if (fabs(m.data[j][i].upper) > fabs(m.data[max][i].upper)) // get just the upper
+    if (fabs(m.data[j * m_size + i].upper) > fabs(m.data[max * m_size + i].upper)) // get just the upper
     {
       max = j;
     }
@@ -44,9 +43,18 @@ size_t find_max(Matrix m, size_t i)
 
 void switch_line(Matrix *m, Vector *c, size_t i, size_t max)
 {
-  Interval *temp = m->data[i];
-  m->data[i] = m->data[max];
-  m->data[max] = temp;
+  // Interval *temp = m->data[i];
+  // m->data[i] = m->data[max];
+  // m->data[max] = temp;
+
+  size_t m_size = m->size;
+
+  for (size_t j = 0; j < m_size; j++)
+  {
+    Interval t = m->data[i * m_size + j];
+    m->data[i * m_size + j] = m->data[max * m_size + j];
+    m->data[max * m_size + j] = t;
+  }
 
   Interval t = c->data[i];
   c->data[i] = c->data[max];
@@ -55,7 +63,9 @@ void switch_line(Matrix *m, Vector *c, size_t i, size_t max)
 
 void triangulate_matrix_by_gauss(Matrix *m, Vector *c)
 {
-  for (size_t i = 0; i < m->size; i++)
+  size_t m_size = m->size;
+
+  for (size_t i = 0; i < m_size; i++)
   {
     size_t max = find_max(*m, i);
 
@@ -64,18 +74,18 @@ void triangulate_matrix_by_gauss(Matrix *m, Vector *c)
       switch_line(m, c, i, max);
     }
 
-    for (size_t j = i + 1; j < m->size; j++)
+    for (size_t j = i + 1; j < m_size; j++)
     {
       // Interval mult = m->data[j][i] / m->data[i][i];
-      Interval mult = interval_div(m->data[j][i], m->data[i][i]);
+      Interval mult = interval_div(m->data[j * m_size + i], m->data[i * m_size + i]);
 
-      m->data[j][i].lower = 0.0; // [j][i] = 0
-      m->data[j][i].upper = 0.0;
+      m->data[j * m_size + i].lower = 0.0; // [j * m_size + i] = 0
+      m->data[j * m_size + i].upper = 0.0;
 
-      for (size_t k = i + 1; k < m->size; k++)
+      for (size_t k = i + 1; k < m_size; k++)
       {
-        // m->data[j][k] -= mult * m->data[i][k];
-        m->data[j][k] = interval_sub(m->data[j][k], interval_mul(mult, m->data[i][k]));
+        // m->data[j * m_size + k] -= mult * m->data[i * m_size + k];
+        m->data[j * m_size + k] = interval_sub(m->data[j * m_size + k], interval_mul(mult, m->data[i * m_size + k]));
       }
 
       // c->data[j] -= mult * c->data[i];
@@ -86,26 +96,27 @@ void triangulate_matrix_by_gauss(Matrix *m, Vector *c)
 
 void print_vector(Vector v)
 {
-    for (long long int i = 0; i < v.size; i++)
-    {
-        printf("[%1.8e,%1.8e] ", v.data[i].lower, v.data[i].upper);
-    }
-    printf("\n");
+  for (long long int i = 0; i < v.size; i++)
+  {
+    printf("[%1.8e,%1.8e] ", v.data[i].lower, v.data[i].upper);
+  }
+  printf("\n");
 }
 
 Vector *get_solution_by_substitution(Matrix m, Vector c)
 {
-  Vector *solution = initialize_vector(m.size);
+  size_t m_size = m.size;
+  Vector *solution = initialize_vector(m_size);
 
-  for (long long int i = m.size - 1; i >= 0; i--)
+  for (long long int i = m_size - 1; i >= 0; i--)
   {
 
     Interval sum = interval(0.0);
 
-    for (size_t j = i + 1; j < m.size; j++)
-      sum = interval_sum(sum, interval_mul(m.data[i][j], solution->data[j]));
+    for (size_t j = i + 1; j < m_size; j++)
+      sum = interval_sum(sum, interval_mul(m.data[i * m_size + j], solution->data[j]));
 
-    solution->data[i] = interval_div(interval_sub(c.data[i], sum), m.data[i][i]);
+    solution->data[i] = interval_div(interval_sub(c.data[i], sum), m.data[i * m_size + i]);
   }
 
   return solution;
@@ -113,16 +124,12 @@ Vector *get_solution_by_substitution(Matrix m, Vector c)
 
 void free_matrix(Matrix *A)
 {
-    for (long long int i = 0; i < A->size; i++)
-    {
-        free(A->data[i]);
-    }
-    free(A->data);
-    free(A);
+  free(A->data);
+  free(A);
 }
 
 void free_vector(Vector *b)
 {
-    free(b->data);
-    free(b);
+  free(b->data);
+  free(b);
 }
