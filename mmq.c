@@ -39,22 +39,34 @@ void print_residue(points_t *points, Vector *b)
 
 void generate_matrix(Matrix *A, Vector *b, points_t *points, unsigned long long int order)
 {
-    // Fill the matrix and the vector
     size_t m_size = A->size;
-    for (long long int i = 0; i < A->size; i++)
+
+    // Fill the upper and lower triangular parts of the matrix
+    for (long long int i = 0; i < m_size; ++i)
     {
-        for (long long int j = 0; j < A->size; j++)
+        // Lower triangular part
+        for (long long int j = 0; j < i; ++j)
+        {
+            A->data[i * m_size + j] = A->data[j * m_size + i];
+        }
+
+        // Upper triangular part
+        for (long long int j = i; j < m_size; ++j)
         {
             A->data[i * m_size + j] = interval(0.0);
             for (long long int k = 0; k < points->num_of_points; k++)
-                A->data[i * m_size + j] = interval_sum(A->data[i * m_size + j], interval_pow(interval(points->points[k].x), i + j));
+            {
+                Interval x_pow = interval_pow(interval(points->points[k].x), i + j);
+                A->data[i * m_size + j] = interval_sum(A->data[i * m_size + j], x_pow);
+            }
         }
     }
 
-    for (long long int i = 0; i < b->size; i++)
+    // Fill the vector b
+    for (long long int i = 0; i < b->size; ++i)
     {
         b->data[i] = interval(0.0);
-        for (long long int k = 0; k < points->num_of_points; k++)
+        for (long long int k = 0; k < points->num_of_points; ++k)
             b->data[i] = interval_sum(b->data[i], interval_mul(interval_pow(interval(points->points[k].x), i), interval(points->points[k].y)));
     }
 }
