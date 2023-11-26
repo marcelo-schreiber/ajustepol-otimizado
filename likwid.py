@@ -25,7 +25,7 @@ likwid_metrics = {
 
 likwid_markers = ["generate_matrix", "solve_system", "residue"]
 
-sample_inputs = [64, 128]#, 200, 256, 512, 600, 800, 1024, 2000, 3000, 4096, 6000, 7000, 10000, 50000, 100_000, 1_000_000, 10_000_000, 100_000_000]  
+sample_inputs = [64, 128, 200, 256, 512, 600, 800, 1024, 2000, 3000, 4096, 6000, 7000, 10000, 50000, 100_000, 1_000_000, 10_000_000, 100_000_000]  
 
 system(f"echo \"performance\" > /sys/devices/system/cpu/cpufreq/policy3/scaling_governor")    
 system("gcc gera_entrada.c -o gera_entrada")
