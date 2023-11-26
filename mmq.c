@@ -10,7 +10,7 @@
 #include "utils.h"
 #include <stdio.h>
 
-void print_residue(points_t *points, Vector *b)
+void print_residue(const points_t *points, const Vector *b)
 {
     long long int num_points = points->num_of_points;
     long long int max_power = b->size - 1;
@@ -37,7 +37,7 @@ void print_residue(points_t *points, Vector *b)
     printf("\n");
 }
 
-void generate_matrix(Matrix *A, Vector *b, points_t *points, unsigned long long int order)
+void generate_matrix(Matrix *A, Vector *b, const points_t *points, unsigned long long int order)
 {
     size_t m_size = A->size;
 
