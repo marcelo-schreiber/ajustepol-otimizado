@@ -9,7 +9,6 @@
 #include "interval_operations.h"
 #include <math.h>
 
-
 double m(double x)
 {
   return nextafter(x, DBL_MIN);
@@ -76,7 +75,14 @@ Interval interval_div(Interval a, Interval b)
   inverse.lower = 1 / b.upper;
   inverse.upper = 1 / b.lower;
 
-  return interval_mul(a, inverse);
+  Interval result;
+
+  double products[4] = {a.lower * inverse.lower, a.lower * inverse.upper, a.upper * inverse.lower, a.upper * inverse.upper};
+
+  result.lower = m(fmin(fmin(products[0], products[1]), fmin(products[2], products[3])));
+  result.upper = M(fmax(fmax(products[0], products[1]), fmax(products[2], products[3])));
+
+  return result;
 }
 
 // [a,b]p =    [1,1]                      se p = 0
