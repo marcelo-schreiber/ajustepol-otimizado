@@ -42,25 +42,22 @@ python3 likwid.py
 ```
 
 Ele irá fazer um make clean e make automaticamente.
-(https://www.codeproject.com/Articles/6154/Writing-Efficient-C-and-C-Code-Optimization)
+(<https://www.codeproject.com/Articles/6154/Writing-Efficient-C-and-C-Code-Optimization>)
+
 ## O que foi otimizado (deveria ser otimizado)
 
-- Usar vetor ao inves de matriz (sempre lista de uma dimensão)
+### Otimizações gerais
 
-- reaproveitar diagonais da matriz
+- [v] Transformar a matriz em um vetor linear.
 
-- aproveitar calculo de quando há exponenciação (x^9 = x^8 * x, etc)
+- [v] Reaproveitar diagonais da matriz no método dos mínimos quadrados.
 
-- i++ -> ++i
+- [v] aproveitar cálculo anterior quando há exponenciação (x^9 = x^8 * x, etc).
 
-- colocar unsigned em tudo que for possivel
+## Otimizações básicas
 
-- usar register em variáveis muito utilizadas em um loop curto
+- [v] refatorar algumas funções que não foram vetorizadas.
 
-- usar inline em funções pequenas
+- [v] usar const em variáveis que não são alteradas.
 
-- usar const em variáveis que não são alteradas
-
-- usar alligned_alloc para alocar memória alinhada (tamanho divisivel por 16)
-
-- const quando uma funcao recebe um ponteiro e não altera o valor
+- [v] const quando uma funcao recebe um ponteiro e não altera o valor.
