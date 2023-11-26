@@ -54,7 +54,7 @@ void generate_matrix(Matrix *A, Vector *b, const points_t *points, unsigned long
         for (long long int j = i; j < m_size; ++j)
         {
             A->data[i * m_size + j] = interval(0.0);
-            for (long long int k = 0; k < points->num_of_points; k++)
+            for (long long int k = 0; k < points->num_of_points; ++k)
             {
                 Interval x_pow = interval_pow(interval(points->points[k].x), i + j);
                 A->data[i * m_size + j] = interval_sum(A->data[i * m_size + j], x_pow);

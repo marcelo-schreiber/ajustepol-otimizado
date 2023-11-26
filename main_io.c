@@ -37,7 +37,7 @@ points_t *read_points(long long int k)
   points->num_of_points = k - 1;
   points->points = (point_t *)malloc(points->num_of_points * sizeof(point_t));
 
-  for (size_t i = 0; i < points->num_of_points; i++)
+  for (size_t i = 0; i < points->num_of_points; ++i)
   {
     int scanf_result = scanf("%lf %lf\n", &(points->points[i].x), &(points->points[i].y));
 
