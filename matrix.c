@@ -7,6 +7,7 @@
  */
 
 #include "matrix.h"
+#include <string.h>
 
 Matrix *initialize_matrix(long long int order)
 {
@@ -43,23 +44,41 @@ size_t find_max(Matrix m, size_t i)
 
 void switch_line(Matrix *m, Vector *c, size_t i, size_t max)
 {
-  // Interval *temp = m->data[i];
-  // m->data[i] = m->data[max];
-  // m->data[max] = temp;
 
   size_t m_size = m->size;
 
-  for (size_t j = 0; j < m_size; ++j)
-  {
-    Interval t = m->data[i * m_size + j];
-    m->data[i * m_size + j] = m->data[max * m_size + j];
-    m->data[max * m_size + j] = t;
-  }
+    Interval* temp = (Interval*)malloc(sizeof(Interval) * m_size);
+    memcpy(temp, &(m->data[i * m_size]), sizeof(Interval) * m_size);
+    memcpy(&(m->data[i * m_size]), &(m->data[max * m_size]), sizeof(Interval) * m_size);
+    memcpy(&(m->data[max * m_size]), temp, sizeof(Interval) * m_size);
+    // m->data[i * m_size + j] = m->data[max * m_size + j];
+    // m->data[max * m_size + j] = t;
+    free(temp);
 
   Interval t = c->data[i];
   c->data[i] = c->data[max];
   c->data[max] = t;
 }
+
+// void switch_line(Matrix *m, Vector *c, size_t i, size_t max)
+// {
+//   // Interval *temp = m->data[i];
+//   // m->data[i] = m->data[max];
+//   // m->data[max] = temp;
+
+//   size_t m_size = m->size;
+
+//   for (size_t j = 0; j < m_size; ++j)
+//   {
+//     Interval t = m->data[i * m_size + j];
+//     m->data[i * m_size + j] = m->data[max * m_size + j];
+//     m->data[max * m_size + j] = t;
+//   }
+
+//   Interval t = c->data[i];
+//   c->data[i] = c->data[max];
+//   c->data[max] = t;
+// }
 
 void triangulate_matrix_by_gauss(Matrix *m, Vector *c)
 {
