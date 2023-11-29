@@ -41,32 +41,52 @@ void generate_matrix(Matrix *A, Vector *b, const points_t *points, unsigned long
 {
     size_t m_size = A->size;
 
-    // Fill the upper and lower triangular parts of the matrix
-    for (long long int i = 0; i < m_size; ++i)
+    long long int i = 0, j = 0, k = 0;
+
+    for (k = 0; k < m_size; k++)
     {
-        // Lower triangular part
-        for (long long int j = 0; j < i; ++j)
+        i = 0;
+        j = k;
+
+        Interval sum = interval(0.0);
+
+        for (long long int l = 0; l < points->num_of_points; l++)
         {
-            A->data[i * m_size + j] = A->data[j * m_size + i];
+            sum = interval_sum(sum, interval_pow(interval(points->points[l].x), i + j));
         }
 
-        // Upper triangular part
-        for (long long int j = i; j < m_size; ++j)
+        while (j >= 0 && i < m_size)
         {
-            A->data[i * m_size + j] = interval(0.0);
-            for (long long int k = 0; k < points->num_of_points; ++k)
-            {
-                Interval x_pow = interval_pow(interval(points->points[k].x), i + j);
-                A->data[i * m_size + j] = interval_sum(A->data[i * m_size + j], x_pow);
-            }
+            A->data[i * m_size + j] = sum;
+            i++;
+            j--;
         }
     }
 
-    // Fill the vector b
-    for (long long int i = 0; i < b->size; ++i)
+    for (k = 1; k < m_size; k++)
+    {
+        i = k;
+        j = m_size - 1;
+
+        Interval sum = interval(0.0);
+
+        for (long long int l = 0; l < points->num_of_points; l++)
+        {
+            sum = interval_sum(sum, interval_pow(interval(points->points[l].x), i + j));
+        }
+
+        while (i < m_size && j >= 0)
+        {
+            A->data[i * m_size + j] = sum;
+            i++;
+            j--;
+        }
+    }
+
+    for (long long int i = 0; i < b->size; i++)
     {
         b->data[i] = interval(0.0);
-        for (long long int k = 0; k < points->num_of_points; ++k)
+        for (long long int k = 0; k < points->num_of_points; k++)
             b->data[i] = interval_sum(b->data[i], interval_mul(interval_pow(interval(points->points[k].x), i), interval(points->points[k].y)));
     }
 }
