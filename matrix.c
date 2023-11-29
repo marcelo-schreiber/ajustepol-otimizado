@@ -42,47 +42,26 @@ size_t find_max(Matrix m, size_t i)
   return max;
 }
 
-void switch_line(Matrix *m, Vector *c, size_t i, size_t max)
+void switch_line(Matrix *m, Vector *c, size_t i, size_t max, Interval* temp)
 {
 
   size_t m_size = m->size;
 
-    Interval* temp = (Interval*)malloc(sizeof(Interval) * m_size);
     memcpy(temp, &(m->data[i * m_size]), sizeof(Interval) * m_size);
     memcpy(&(m->data[i * m_size]), &(m->data[max * m_size]), sizeof(Interval) * m_size);
     memcpy(&(m->data[max * m_size]), temp, sizeof(Interval) * m_size);
     // m->data[i * m_size + j] = m->data[max * m_size + j];
     // m->data[max * m_size + j] = t;
-    free(temp);
 
   Interval t = c->data[i];
   c->data[i] = c->data[max];
   c->data[max] = t;
 }
 
-// void switch_line(Matrix *m, Vector *c, size_t i, size_t max)
-// {
-//   // Interval *temp = m->data[i];
-//   // m->data[i] = m->data[max];
-//   // m->data[max] = temp;
-
-//   size_t m_size = m->size;
-
-//   for (size_t j = 0; j < m_size; ++j)
-//   {
-//     Interval t = m->data[i * m_size + j];
-//     m->data[i * m_size + j] = m->data[max * m_size + j];
-//     m->data[max * m_size + j] = t;
-//   }
-
-//   Interval t = c->data[i];
-//   c->data[i] = c->data[max];
-//   c->data[max] = t;
-// }
-
 void triangulate_matrix_by_gauss(Matrix *m, Vector *c)
 {
   size_t m_size = m->size;
+  Interval* temp = (Interval*)malloc(sizeof(Interval) * m_size);
 
   for (size_t i = 0; i < m_size; ++i)
   {
@@ -90,7 +69,7 @@ void triangulate_matrix_by_gauss(Matrix *m, Vector *c)
 
     if (max != i)
     { // switch line
-      switch_line(m, c, i, max);
+      switch_line(m, c, i, max, temp);
     }
 
     for (size_t j = i + 1; j < m_size; ++j)
@@ -111,6 +90,8 @@ void triangulate_matrix_by_gauss(Matrix *m, Vector *c)
       c->data[j] = interval_sub(c->data[j], interval_mul(mult, c->data[i]));
     }
   }
+
+  free(temp);
 }
 
 void print_vector(Vector v)
