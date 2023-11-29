@@ -9,12 +9,15 @@
 #include "interval_operations.h"
 #include <math.h>
 
-double m(double x)
+#define MAX(A,B) ((A>B) ? (A):(B))
+#define MIN(A,B) ((A<B) ? (A):(B))
+
+inline double m(double x)
 {
   return nextafter(x, DBL_MIN);
 }
 
-double M(double x)
+inline double M(double x)
 {
   return x;
 }
@@ -55,8 +58,8 @@ Interval interval_mul(Interval a, Interval b)
 
   double products[4] = {a.lower * b.lower, a.lower * b.upper, a.upper * b.lower, a.upper * b.upper};
 
-  result.lower = m(fmin(fmin(products[0], products[1]), fmin(products[2], products[3])));
-  result.upper = M(fmax(fmax(products[0], products[1]), fmax(products[2], products[3])));
+  result.lower = m(MIN(MIN(products[0], products[1]), MIN(products[2], products[3])));
+  result.upper = M(MAX(MAX(products[0], products[1]), MAX(products[2], products[3])));
 
   return result;
 }
@@ -79,8 +82,8 @@ Interval interval_div(Interval a, Interval b)
 
   double products[4] = {a.lower * inverse.lower, a.lower * inverse.upper, a.upper * inverse.lower, a.upper * inverse.upper};
 
-  result.lower = m(fmin(fmin(products[0], products[1]), fmin(products[2], products[3])));
-  result.upper = M(fmax(fmax(products[0], products[1]), fmax(products[2], products[3])));
+  result.lower = m(MIN(MIN(products[0], products[1]), MIN(products[2], products[3])));
+  result.upper = M(MAX(MAX(products[0], products[1]), MAX(products[2], products[3])));
 
   return result;
 }
@@ -126,7 +129,7 @@ Interval interval_pow(Interval i, long long int p)
   if (a < 0 && b >= 0)
   {
     result.lower = 0;
-    result.upper = fmax(pow(a, p), pow(b, p));
+    result.upper = MAX(pow(a, p), pow(b, p));
     return result;
   }
 
