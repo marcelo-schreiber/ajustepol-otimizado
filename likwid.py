@@ -7,25 +7,21 @@ num_of_cores -= 1 # likwid conta a partir do 0
 likwid_metrics = {
   "flops": {
     "metric": "FLOPS_DP",
-    "label": "MFLOP/s",
+    "label": "AVX DP [MFLOP/s]",
   },
   "l2cache": {
-    "metric": "CACHE",
+    "metric": "L2CACHE",
     "label": "ratio",
   },
   "mem": {
     "metric": "MEM",
     "label": "Memory bandwidth [MBytes/s]",
   },
-  "energy": {
-    "metric": "ENERGY",
-    "label": "Energy Core [J]", # meu likwid não contém label 'Energy [J]' somente CORE e PKG, n sei pq :(
-  }
 }
 
 likwid_markers = ["generate_matrix", "solve_system", "residue"]
 
-sample_inputs = [64, 128]#, 200, 256, 512, 600, 800, 1024, 2000, 3000, 4096, 6000, 7000, 10000, 50000, 100_000, 1_000_000, 10_000_000, 100_000_000]  
+sample_inputs = [64, 128, 200, 256, 512, 600, 800, 1024, 2000, 3000, 4096, 6000, 7000, 10000, 50000, 100_000, 1_000_000, 10_000_000, 100_000_000]  
 
 system(f"echo \"performance\" > /sys/devices/system/cpu/cpufreq/policy3/scaling_governor")    
 system("gcc gera_entrada.c -o gera_entrada")
@@ -50,19 +46,8 @@ def get_metric_number_from_file(filename, metric):
     return tracked_metrics
 
 def get_runtime_from_file(filename):
-    # first line is generate
-    # e.g 
-    # 4.58139182e+04
-    # second line is solve
-    # third line is residue
     runtimes = {}
 
-    # 3 lines after the text 'tempo de execucoes'
-    # ex:
-    # tempo de execucoes
-    # 7.15314001e-01
-    # 3.70089000e-01
-    # 5.88483000e-01
     with open(filename, 'r') as f:
         for line in f:
             if "tempo de execucoes" in line:
