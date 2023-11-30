@@ -61,3 +61,5 @@ Ele irá fazer um make clean e make automaticamente.
 - [v] usar const em variáveis que não são alteradas.
 
 - [v] const quando uma funcao recebe um ponteiro e não altera o valor.
+
+- [v] inline em funções pequenas.
