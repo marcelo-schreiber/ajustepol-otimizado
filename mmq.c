@@ -21,14 +21,12 @@ void print_residue(const points_t *points, const Vector *b)
         Interval current_power = interval(1.0);
         Interval x = interval(points->points[i].x);
 
-        // Calculate powers without the need for an if statement
         for (long long int j = 0; j < max_power; ++j)
         {
             sum = interval_sum(sum, interval_mul(b->data[j], current_power));
             current_power = interval_mul(current_power, x);
         }
 
-        // Special case for the last power
         sum = interval_sum(sum, interval_mul(b->data[max_power], current_power));
 
         Interval residue = interval_sub(interval(points->points[i].y), sum);
